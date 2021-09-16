@@ -1,0 +1,18 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  package="cc.lkme.account">
+
+    <!-- 必要的权限 -->
+    <!-- 允许应用程序联网，用于访问网关和认证服务器 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 获取网络状态，判断是否数据、wifi等 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 允许程序改变网络连接状态 -->
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+
+    <!-- 非必要权限 -->
+    <!-- 允许程序访问WiFi网络状态信息 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 用于判断双卡和换卡 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+</manifest>

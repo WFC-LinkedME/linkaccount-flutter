@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#000000</color>
+    <color name="blue">#0090ff</color>
+    <color name="blue_ctc">#01bdd5</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="cta_headView_bg_color">#00000000</color>
+    <color name="cta_line_gray">#E5E5E5</color>
+    <color name="efefef">#ffffff</color>
+    <color name="gray">#787676</color>
+    <color name="nav_bg">#4194fa</color>
+    <color name="privacy_base_color">#787676</color>
+    <color name="privacy_color">#4194fa</color>
+    <color name="red">#cc000a</color>
+    <color name="slogan">#787676</color>
+    <color name="switch_text_color">#999999</color>
+    <color name="switcher">#399CF0</color>
+    <color name="translucent">#00000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="white_bg">#FFFFFF</color>
+    <item name="linkaccount_login_btn" type="id"/>
+    <item name="linkaccount_login_view" type="id"/>
+    <item name="linkaccount_logo_view" type="id"/>
+    <item name="linkaccount_other_view" type="id"/>
+    <item name="linkaccount_phone_view" type="id"/>
+    <item name="linkaccount_privacy_checkbox" type="id"/>
+    <item name="linkaccount_privacy_textview" type="id"/>
+    <item name="linkaccount_privacy_view" type="id"/>
+    <item name="linkaccount_progress_view" type="id"/>
+    <item name="linkaccount_slogan_view" type="id"/>
+    <item name="linkaccount_toolbar_view" type="id"/>
+    <string name="app_name">linkaccount</string>
+    <string name="ct_account_auth_privacy_text"><u>服务与隐私协议</u></string>
+    <string name="ct_account_brand_text">天翼账号提供认证服务</string>
+    <string name="hint_txt">登录即同意</string>
+    <string name="loading">请稍后…</string>
+    <string name="oauth_login">一键登录</string>
+    <string name="oauth_title">免密登录</string>
+    <string name="service_and_privacy">中国联通认证服务协议</string>
+    <string name="service_and_privacy_ctc">中国电信认证服务协议</string>
+    <string name="service_name">手机认证服务由中国联通提供</string>
+    <string name="service_name_ctc">手机认证服务由中国电信提供</string>
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+
+    </style>
+    <style name="AppTheme" parent="@android:style/Theme.Holo.Light.NoActionBar">
+
+        <item name="android:background">@null</item>
+        <item name="android:colorBackground">@null</item>
+    </style>
+    <style name="CtAuthDialog" parent="android:style/Theme.Dialog">
+        <!--背景颜色和透明程度-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--是否去除标题-->
+        <item name="android:windowNoTitle">true</item>
+        <!--是否去除边框-->
+        <item name="android:windowFrame">@null</item>
+        <!--是否浮现在activity之上-->
+        <item name="android:windowIsFloating">true</item>
+        <!--是否模糊-->
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+    <style name="authActivityTheme">
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+    </style>
+    <style name="dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/black</item>
+        <item name="android:windowNoTitle">false</item>
+    </style>
+</resources>
