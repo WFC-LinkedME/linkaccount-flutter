@@ -9,61 +9,43 @@ typedef TokenResultListener = void Function(TokenResult tokenResult);
 class Account {
   static const MethodChannel _channel = MethodChannel('account');
 
-  final AccountHandlers _eventHanders = new AccountHandlers();
-
-  Account() {
-    _channel.setMethodCallHandler(_handlerMethod);
-  }
-
-  Future<void> _handlerMethod(MethodCall call) async {
-    switch (call.method) {
-      case 'tokenResult':
-        Map<String, dynamic> map = Map<String, dynamic>.from(call.arguments);
-
-        TokenResult tokenResult = TokenResult();
-        tokenResult.resultType = map['resultType'] as int?;
-        tokenResult.resultCode = map['resultCode'] as int?;
-        tokenResult.accessToken = map['accessToken'] as String?;
-        tokenResult.mobile = map['mobile'] as String?;
-        tokenResult.operatorType = map['operatorType'] as String?;
-        tokenResult.gwAuth = map['gwAuth'] as String?;
-        tokenResult.platform = map['platform'] as String?;
-        tokenResult.originResult =  map['originResult'] as String?;
-        _eventHanders.tokenResultListener?.call(tokenResult);
-        break;
-      default:
-        throw new UnsupportedError("Unrecognized Event");
-    }
-  }
+  Account();
 
   // 初始化SDK
-  Future<String?> init({required String key}) async {
-    _channel.invokeMethod("init", {"key": key});
-    return "123";
+  init({required String key}) async {
+    await _channel.invokeMethod("init", {"key": key});
   }
 
   // 设置Debug模式
   Future<String?> setDebug({required bool isDebug}) async {
     _channel.invokeMethod("setDebug", {"isDebug": isDebug});
-    return "123";
-  }
-
-  // 设置监听
-  setTokenResultListener(TokenResultListener callback) {
-    _eventHanders.tokenResultListener = callback;
   }
 
   // 开始预取号
-  preLogin({required int timeout}) async {
-    _channel.invokeMethod("preLogin", {"timeout": timeout});
+  Future<TokenResult?> preLogin({required int timeout}) async {
+    Map<dynamic, dynamic> result =
+        await _channel.invokeMethod("preLogin", {"timeout": timeout});
+    return formatResult(result);
   }
 
   // 获取token
-   getLoginToken({required int timeout}) async {
-    _channel.invokeMethod("getLoginToken", {"timeout": timeout});
+  Future<TokenResult?> getLoginToken({required int timeout}) async {
+    Map<dynamic, dynamic> result =
+        await _channel.invokeMethod("getLoginToken", {"timeout": timeout});
+    return formatResult(result);
   }
-}
 
-class AccountHandlers {
-  TokenResultListener? tokenResultListener;
+  TokenResult formatResult(Map<dynamic, dynamic> result) {
+    Map<String, dynamic> newResult = Map<String, dynamic>.from(result);
+    TokenResult tokenResult = TokenResult();
+    tokenResult.resultType = newResult['resultType'] as int?;
+    tokenResult.resultCode = newResult['resultCode'] as int?;
+    tokenResult.accessToken = newResult['accessToken'] as String?;
+    tokenResult.mobile = newResult['mobile'] as String?;
+    tokenResult.operatorType = newResult['operatorType'] as String?;
+    tokenResult.gwAuth = newResult['gwAuth'] as String?;
+    tokenResult.platform = newResult['platform'] as String?;
+    tokenResult.originResult = newResult['originResult'] as String?;
+    return tokenResult;
+  }
 }

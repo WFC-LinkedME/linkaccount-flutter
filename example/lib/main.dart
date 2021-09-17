@@ -3,9 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:flutter/services.dart';
 import 'package:account/account.dart';
-import 'package:account/TokenResult.dart';
 
 void main() {
   runApp(const MyApp());
@@ -45,22 +43,13 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  // 设置监听
-  Future<void> setTokenResultListener() async {
-    account.setTokenResultListener((TokenResult callback) {
-      print("callback===" + callback.toString());
-      setState(() {
-        result = callback.toString();
-      });
-    });
-    setState(() {
-      result = "设置监听成功";
-    });
-  }
-
   // 预取号
   Future<void> preLogin() async {
-    account.preLogin(timeout: 5000);
+    account.preLogin(timeout: 5000).then((tokenResult) => {
+          setState(() {
+            result = tokenResult.toString();
+          }),
+        });
     setState(() {
       result = "正在预取号";
     });
@@ -68,7 +57,11 @@ class _MyAppState extends State<MyApp> {
 
   // 一键登录
   Future<void> getLoginToken() async {
-    account.getLoginToken(timeout: 5000);
+    account.getLoginToken(timeout: 5000).then((tokenResult) => {
+      setState(() {
+        result = tokenResult.toString();
+      }),
+    });
     setState(() {
       result = "正在获取token";
     });
@@ -79,13 +72,10 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('Account Flutter Demo'),
         ),
         body: Container(
-          margin: const EdgeInsets.all(10.0),
-          color: Colors.amber[600],
-          // width: 48.0,
-          // height: 48.0,
+          color: Colors.white,
           child: _buildContent(),
         ),
       ),
@@ -98,11 +88,12 @@ class _MyAppState extends State<MyApp> {
       child: new Column(
         children: <Widget>[
           Container(
-            margin: EdgeInsets.all(20),
-            color: Colors.greenAccent,
+            margin: EdgeInsets.all(8),
+            color: Colors.blueAccent,
+            padding: EdgeInsets.all(8),
             child: Text(result),
-            width: 300,
-            height: 180,
+            width: double.infinity,
+            height: 200,
           ),
           Expanded(
             flex: 1,
@@ -118,13 +109,6 @@ class _MyAppState extends State<MyApp> {
                           initAccount();
                         },
                         child: const Text('SDK初始化'),
-                      ),
-                      new Text("   "),
-                      new ElevatedButton(
-                        onPressed: () {
-                          setTokenResultListener();
-                        },
-                        child: const Text('设置监听'),
                       ),
                     ],
                   ),
