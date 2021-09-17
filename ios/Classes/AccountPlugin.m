@@ -38,8 +38,12 @@
 - (void)initializeWithMethodCall:(FlutterMethodCall *)call result:(FlutterResult)result {
     NSString *appKey = [call.arguments valueForKey:@"key"];
     [LMAuthSDKManager initWithKey:appKey complete:^(NSDictionary * _Nonnull resultDic) {
-        self.sdkInit = [[resultDic valueForKey:@"resultCode"] integerValue] == 6666;
-        result(resultDic);
+        NSInteger resultCode = [[resultDic valueForKey:@"resultCode"] integerValue];
+        self.sdkInit = (resultCode == 6666);
+        NSMutableDictionary *dictM = [NSMutableDictionary dictionaryWithCapacity:2];
+        [dictM setValue:@(resultCode) forKey:@"resultCode"];
+        [dictM setValue:[AccountPlugin jsonStrWithDict:resultDic] forKey:@"originResult"];
+        result(dictM);
     }];
 }
 
@@ -66,11 +70,11 @@
             } else {
                 NSMutableDictionary *dictM = [NSMutableDictionary dictionaryWithCapacity:2];
                 [dictM setValue:@([[resultDic valueForKey:@"resultCode"] integerValue]) forKey:@"resultCode"];
-                [dictM setValue:[resultDic valueForKey:@"desc"] forKey:@"originResult"];
+                [dictM setValue:[AccountPlugin jsonStrWithDict:resultDic] forKey:@"originResult"];
                 self.preLogin = NO;
                 result(dictM);
             }
-            NSLog(@"😊预取号结果: %@", resultDic);
+//            NSLog(@"😊预取号结果: %@", resultDic);
         }];
     }
 }
@@ -96,15 +100,16 @@
                     [dictM setValue:[resultDic valueForKey:@"accessToken"] forKey:@"accessToken"];
                     [dictM setValue:[resultDic valueForKey:@"operatorType"] forKey:@"operatorType"];
                     [dictM setValue:[resultDic valueForKey:@"gwAuth"] forKey:@"gwAuth"];
+                    [dictM setValue:[resultDic valueForKey:@"mobile"] forKey:@"mobile"];
                     [dictM setValue:@"0" forKey:@"platform"];
                     result(dictM);
                 } else {
                     NSMutableDictionary *dictM = [NSMutableDictionary dictionaryWithCapacity:2];
                     [dictM setValue:@([[resultDic valueForKey:@"resultCode"] integerValue]) forKey:@"resultCode"];
-                    [dictM setValue:resultDic forKey:@"originResult"];
+                    [dictM setValue:[AccountPlugin jsonStrWithDict:resultDic] forKey:@"originResult"];
                     result(dictM);
                 }
-                NSLog(@"😊一键登录结果: %@", resultDic);
+//                NSLog(@"😊一键登录结果: %@", resultDic);
             }];
         }
     }
@@ -124,6 +129,17 @@
     [dictM setValue:@(10001) forKey:@"resultCode"];
     [dictM setValue:@"SDK未初始化，请先初始化SDK" forKey:@"originResult"];
     completion(dictM);
+}
+
++ (NSString *)jsonStrWithDict:(NSDictionary *)dict {
+    NSError *parseError = [[NSError alloc] init];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&parseError];
+    NSString *result = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    if (result.length) {
+        return result;
+    } else {
+        return @"操作失败!";
+    }
 }
 
 @end
