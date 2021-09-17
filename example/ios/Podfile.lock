@@ -1,11 +1,17 @@
 PODS:
   - account (0.0.1):
     - Flutter
+    - LinkedME_LinkAccount
   - Flutter (1.0.0)
+  - LinkedME_LinkAccount (2.4.2)
 
 DEPENDENCIES:
   - account (from `.symlinks/plugins/account/ios`)
   - Flutter (from `Flutter`)
+
+SPEC REPOS:
+  trunk:
+    - LinkedME_LinkAccount
 
 EXTERNAL SOURCES:
   account:
@@ -14,8 +20,9 @@ EXTERNAL SOURCES:
     :path: Flutter
 
 SPEC CHECKSUMS:
-  account: f846f737d9056b2dfe88007eab63830d9c3a43d5
+  account: ebc58a37d0781cf54b2404cfbaca1c2fe13d4379
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+  LinkedME_LinkAccount: a785f84cec01b20f5c95e941cf8ee1a1372668c7
 
 PODFILE CHECKSUM: 8e679eca47255a8ca8067c4c67aab20e64cb974d
 
