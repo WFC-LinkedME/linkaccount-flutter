@@ -15,12 +15,16 @@
     if ([@"getInstance" isEqualToString:call.method]) {
         [self getInstanceWithMethodCall:call result:result];
     } else if ([@"setDebug" isEqualToString:call.method]) {
-        // ios 这边没啥用
+        [self setDebugWithMethodCall:call result:result];
     } else if ([@"preLogin" isEqualToString:call.method]) {
         [self preLoginWithMethodCall:call result:result];
     } else if ([@"getLoginToken" isEqualToString:call.method]) {
         [self getLoginTokenWithMethodCall:call result:result];
     }
+}
+
+- (void)setDebugWithMethodCall:(FlutterMethodCall *)call result:(FlutterResult)result {
+    
 }
 
 - (void)getInstanceWithMethodCall:(FlutterMethodCall *)call result:(FlutterResult)result {
@@ -35,6 +39,7 @@
     NSInteger timeout = [[call.arguments valueForKey:@"timeout"] integerValue];
     [LMAuthSDKManager getMobileAuthWithTimeout:timeout complete:^(NSDictionary * _Nonnull resultDic) {
         NSLog(@"%@", resultDic);
+        result(resultDic);
     }];
 }
 
@@ -42,6 +47,7 @@
     NSInteger timeout = [[call.arguments valueForKey:@"timeout"] integerValue];
     [[LMAuthSDKManager sharedSDKManager] getAccessTokenWithTimeout:timeout controller:[UIApplication sharedApplication].keyWindow.rootViewController complete:^(NSDictionary * _Nonnull resultDic) {
         NSLog(@"%@", resultDic);
+        result(resultDic);
     }];
 }
 
