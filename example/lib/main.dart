@@ -38,7 +38,7 @@ class _MyAppState extends State<MyApp> {
     } else if (Platform.isAndroid) {
       appId = "7e289a2484f4368dbafbd1e5c7d06903";
     }
-    account.getInstance(key: appId);
+    account.init(key: appId);
     account.setDebug(isDebug: true);
     setState(() {
       result = "初始化成功";

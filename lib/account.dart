@@ -37,8 +37,8 @@ class Account {
   }
 
   // 初始化SDK
-  Future<String?> getInstance({required String key}) async {
-    _channel.invokeMethod("getInstance", {"key": key});
+  Future<String?> init({required String key}) async {
+    _channel.invokeMethod("init", {"key": key});
     return "123";
   }
 

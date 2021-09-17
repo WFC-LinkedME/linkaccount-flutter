@@ -38,8 +38,8 @@ public class AccountPlugin implements FlutterPlugin, MethodCallHandler {
 
     @Override
     public void onMethodCall(MethodCall call, Result result) {
-        if (call.method.equals("getInstance")) {
-            getInstance(call, result);
+        if (call.method.equals("init")) {
+            init(call, result);
         } else if (call.method.equals("setDebug")) {
             setDebug(call, result);
         } else if (call.method.equals("preLogin")) {
@@ -51,7 +51,7 @@ public class AccountPlugin implements FlutterPlugin, MethodCallHandler {
         }
     }
 
-    private void getInstance(MethodCall call, final Result result) {
+    private void init(MethodCall call, final Result result) {
         String appKey = call.argument("key");
         LinkAccount.getInstance(context, appKey);
     }
