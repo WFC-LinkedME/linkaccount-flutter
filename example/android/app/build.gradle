@@ -32,9 +32,24 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    signingConfigs {
+        //        必须这么配置,是因为用的这个debug.keystore申请的微信、微博的appKey
+        //        当然,keyPassword与storePassword可以不用,为什么?android为debug.keystore默认的密码
+        debug {
+            storeFile file('debug.keystore')
+            keyPassword 'android'
+            storePassword 'android'
+        }
+        release {
+            storeFile file('debug.keystore')
+            keyPassword 'android'
+            storePassword 'android'
+        }
+    }
+
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "cc.linkedme.linkaccount_example"
+        applicationId "com.microquation.linkedme"
         minSdkVersion 16
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
@@ -42,10 +57,15 @@ android {
     }
 
     buildTypes {
-        release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 }

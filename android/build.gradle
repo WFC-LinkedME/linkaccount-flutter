@@ -38,5 +38,5 @@ android {
 }
 
 dependencies {
-    implementation files('libs/linkaccount-v1.0.29.jar')
+    implementation files('libs/linkaccount-v1.0.34.jar')
 }
