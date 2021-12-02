@@ -61,6 +61,7 @@ public class LinkaccountPlugin implements FlutterPlugin, MethodCallHandler {
     private void init(MethodCall call, final Result result) {
         String appKey = call.argument("key");
         LinkAccount.getInstance(context, appKey);
+        LinkAccount.getInstance().useDefaultAuthActivity(false);
         setTokenResultListener();
     }
 
