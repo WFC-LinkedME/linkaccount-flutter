@@ -64,13 +64,13 @@
                 [dictM setValue:[desc valueForKey:@"operatorType"] forKey:@"operatorType"];
                 [dictM setValue:[desc valueForKey:@"gwAuth"] forKey:@"gwAuth"];
                 [dictM setValue:@"0" forKey:@"platform"];
-                self.preLogin = YES;
+                self.preLogin = (1 == 1);
                 result(dictM);
             } else {
                 NSMutableDictionary *dictM = [NSMutableDictionary dictionaryWithCapacity:2];
                 [dictM setValue:@([[resultDic valueForKey:@"resultCode"] integerValue]) forKey:@"resultCode"];
                 [dictM setValue:[LinkaccountPlugin jsonStrWithDict:resultDic] forKey:@"originResult"];
-                self.preLogin = NO;
+                self.preLogin = (1 == 0);
                 result(dictM);
             }
 //            NSLog(@"😊预取号结果: %@", resultDic);

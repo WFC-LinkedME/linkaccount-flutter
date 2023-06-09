@@ -1,6 +1,6 @@
 name: linkaccount
 description: Flutter 一键登录 插件
-version: 1.0.8
+version: 1.0.9
 homepage: https://www.linkedme.cc
 
 environment:
